@@ -12,7 +12,7 @@ This Proof of Concept (POC) aims to demonstrate how F5 solutions can support a Z
 3. **Kubernetes Ingress Security**
 
 ### Scope
-The POC will simulate real-world enterprise scenarios using F5 BIG-IP, BIG-IQ, NGINX Ingress Controller, and/or F5 Distributed Cloud Services. It will integrate with third-party identity providers and privileged access management (PAM) systems.
+The POC will simulate real-world enterprise scenarios using F5 BIG-IP LTM, DNS, APM, AWAF, and NGINX Ingress Controller. It will integrate with third-party identity providers and Kubernetes distribution.
 
 ### Success Criteria
 Each test scenario includes measurable outcomes to validate:
@@ -25,8 +25,11 @@ Each test scenario includes measurable outcomes to validate:
 ## 1. 🔐 Multi-Factor Authentication (MFA)
 
 ### Tools Involved
-- F5 BIG-IP APM or F5 Distributed Cloud
-- Identity Provider (Azure AD, Okta, Ping, etc.)
+- F5 BIG-IP LTM, DNS, APM, and AWAF
+- NGINX APP Protext and Ingress Controller
+- Identity Provider (Azure AD, Okta, Ping, LDAP etc.)
+- Public Key Infrastructure
+- RSA Tokens
 
 ### Test Scenarios
 
@@ -46,8 +49,8 @@ Each test scenario includes measurable outcomes to validate:
 
 ### Tools Involved
 - F5 BIG-IP APM
-- F5 BIG-IQ or Distributed Cloud Console
-- PAM integration (e.g., CyberArk, HashiCorp Vault)
+- Identity Provider (Azure AD, Okta, Ping, LDAP etc.)
+- Network devices
 
 ### Test Scenarios
 
@@ -67,8 +70,7 @@ Each test scenario includes measurable outcomes to validate:
 ## 3. 🔐 Kubernetes Ingress Security
 
 ### Tools Involved
-- F5 NGINX Ingress Controller (OSS or Plus)
-- F5 Distributed Cloud K8s Gateway
+- F5 NGINX Ingress Controller and APP Protect
 - Kubernetes cluster (EKS, AKS, GKE, or on-prem)
 
 ### Test Scenarios
@@ -113,4 +115,4 @@ By leveraging F5’s capabilities, organizations can:
 ### Recommendations
 - Proceed with phased deployment of F5 solutions aligned to Zero Trust principles.
 - Integrate with existing IAM and PAM systems for centralized policy enforcement.
-- Expand use of F5 Distributed Cloud for multi-cloud and edge security.
+
