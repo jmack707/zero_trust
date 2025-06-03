@@ -119,6 +119,6 @@ By leveraging F5’s capabilities, organizations can:
 
 ## Labs
 
-1. [Multi-Factor Authentication] (01-MFA)
-2. [Privileged User Access] (02-Privileged_Access)
-3. [Kubernetes Ingress] (03-Kubernetes_Ingress)
+1. [Multi-Factor Authentication] (01-MFA/)
+2. [Privileged User Access] (02-Privileged_Access/)
+3. [Kubernetes Ingress] (03-Kubernetes_Ingress/)
