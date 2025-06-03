@@ -118,6 +118,7 @@ By leveraging F5’s capabilities, organizations can:
 
 
 ## Labs
+[Lab Diagram and Software list](lab.md)
 
 1. [Multi-Factor Authentication](/01-MFA/)
 2. [Privileged User Access](/02-Privileged_Access/)
