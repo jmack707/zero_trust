@@ -7,42 +7,18 @@ The architecture is segmented into management, external, and internal networks, 
 
 ## 🧰 Software List
 
-### 🔹 F5 Specific Components
-
-- **F5 Kubernetes BIG-IP Controller**  
-  - **Container Image:** `f5networks/k8s-bigip-ctlr`  
-  - **Purpose:** Integrates BIG-IP with Kubernetes to manage ingress traffic seamlessly while leveraging F5's advanced networking capabilities.
-
-- **NGINX Ingress**  
-  - **Purpose:** An alternative ingress controller for Kubernetes clusters, enabling flexible routing and load balancing for applications.
-
-- **BIG-IP OVA / Virtual Editions**  
-  - **Purpose:** A virtual machine image for deploying BIG-IP in virtualized or cloud-based environments to enable application traffic management, security, and load balancing.
-
-- **Declarative Onboarding (DO)**  
-  - **Purpose:** Simplifies BIG-IP onboarding processes with declarative JSON-based configuration files for setting up networks, users, and system services.
-
-- **Application Services 3 (AS3)**  
-  - **Purpose:** Automates application deployments using declarative configuration models, streamlining application services provisioning workflows.
-
-### 🔸 Non-F5 Components
-
-- **Ansible Execution Environment with CIS Integration**  
-  - **Container Image:** `dialtone21/f5_cis_ee:1.0.0`  
-  - **Purpose:** Provides a ready-to-use Ansible execution environment for managing tasks like configuration updates and automated workflows in environments using the F5 Container Ingress Services (CIS).
-
-- **NGINX Hello Demo App**  
-  - **Purpose:** A simple web application for demonstrating NGINX configuration and features, useful for testing and validating ingress controller setups.
-
-- **OWASP Juice Shop**  
-  - **Purpose:** A vulnerable web application specifically designed for security testing and showcasing Zero Trust architecture (e.g., AAA controls and secure access workflows).
-
-- **Cert-Manager**  
-  - **Purpose:** Automates the issuance and management of TLS certificates for Kubernetes clusters, ensuring secure communication pathways.
-
-- **Syslog-ng (Balabit)**  
-  - **Container Image:** `balabit/syslog-ng`  
-  - **Purpose:** Centralized logging solution for collecting, filtering, and forwarding log messages from multiple sources. Useful for monitoring and debugging in complex environments.
+| Component | Type | Container Image | Purpose |
+|-----------|------|-----------------|---------|
+| GitHub Repository | None | f5networks/k8s-bigip-ctlr | Integrates BIG-IP with Kubernetes to manage ingress traƯic |
+| GitHub Repository | None | f5networks/k8s-bigip-ctlr | An alternative ingress controller for Kubernetes clusters, |
+| BIG-IP Virtual Editions | None | f5networks/k8s-bigip-ctlr | A virtual machine image for deploying BIG-IP in virtualized |
+| GitHub Repository | None | f5networks/k8s-bigip-ctlr | Simpliﬁes BIG-IP onboarding processes with declarative |
+| GitHub Repository | None | f5networks/k8s-bigip-ctlr | Allows BIG-IP users to automate application deployments |
+| Documentation | Non-F5 | dialtone21/f5_cis_ee:1.0.0 | Provides a ready-to-use Ansible execution environment for |
+| GitHub Repository | Non-F5 | dialtone21/f5_cis_ee:1.0.0 | A simple web application for demonstrating NGINX |
+| GitHub Repository | Non-F5 | dialtone21/f5_cis_ee:1.0.0 | A vulnerable web application speciﬁcally designed for |
+| GitHub Repository | Non-F5 | dialtone21/f5_cis_ee:1.0.0 | Automates the issuance and management of TLS |
+| Docker Hub | Non-F5 | balabit/syslog-ng | Centralized logging solution for collecting, ﬁltering, and |
 
 ---
 
