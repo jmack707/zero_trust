@@ -22,18 +22,6 @@ The architecture is segmented into management, external, and internal networks, 
 
 ---
 
-## 🔐 Privileged User Access (PUA) Documentation
-
-### Overview and Highlights
-- **Privileged User Access Solution Overview**  
-  Explains how F5’s solutions enable secure and streamlined privileged user access, reducing risk through granular identity-based controls over sensitive resources.
-
-### Tutorials and Training
-- **F5 CloudDocs - IAM Lab**  
-  Hands-on lab experience to understand identity and access management principles, particularly for privileged user environments.
-
----
-
 ## 🌐 Required IP Subnets
 
 | Subnet | Purpose |
