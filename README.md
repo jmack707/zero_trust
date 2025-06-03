@@ -116,3 +116,9 @@ By leveraging F5’s capabilities, organizations can:
 - Proceed with phased deployment of F5 solutions aligned to Zero Trust principles.
 - Integrate with existing IAM and PAM systems for centralized policy enforcement.
 
+
+## Labs
+
+1. Multi-Factor Authentication (MFA)
+2. Privileged User Access
+3. Kubernetes Ingress
