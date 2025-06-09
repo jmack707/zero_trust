@@ -9,11 +9,11 @@ The architecture is segmented into management, external, and internal networks, 
 
 | Component | Type | Container Image | Purpose |
 |-----------|------|-----------------|---------|
-| GitHub Repository | None | f5networks/k8s-bigip-ctlr | Integrates BIG-IP with Kubernetes to manage ingress traƯic |
-| GitHub Repository | None | f5networks/k8s-bigip-ctlr | An alternative ingress controller for Kubernetes clusters, |
-| BIG-IP Virtual Editions | None | f5networks/k8s-bigip-ctlr | A virtual machine image for deploying BIG-IP in virtualized |
-| GitHub Repository | None | f5networks/k8s-bigip-ctlr | Simpliﬁes BIG-IP onboarding processes with declarative |
-| GitHub Repository | None | f5networks/k8s-bigip-ctlr | Allows BIG-IP users to automate application deployments |
+| GitHub Repository | F5 | f5networks/k8s-bigip-ctlr | Integrates BIG-IP with Kubernetes to manage ingress traƯic |
+| GitHub Repository | F5 | f5networks/k8s-bigip-ctlr | An alternative ingress controller for Kubernetes clusters, |
+| BIG-IP Virtual Editions | F5 | f5networks/k8s-bigip-ctlr | A virtual machine image for deploying BIG-IP in virtualized |
+| GitHub Repository | F5 | f5networks/k8s-bigip-ctlr | Simpliﬁes BIG-IP onboarding processes with declarative |
+| GitHub Repository | F5 | f5networks/k8s-bigip-ctlr | Allows BIG-IP users to automate application deployments |
 | Documentation | Non-F5 | dialtone21/f5_cis_ee:1.0.0 | Provides a ready-to-use Ansible execution environment for |
 | GitHub Repository | Non-F5 | dialtone21/f5_cis_ee:1.0.0 | A simple web application for demonstrating NGINX |
 | GitHub Repository | Non-F5 | dialtone21/f5_cis_ee:1.0.0 | A vulnerable web application speciﬁcally designed for |
@@ -29,3 +29,5 @@ The architecture is segmented into management, external, and internal networks, 
 | `10.1.1.0/24` | **Management (MGT)** – Access to BIG-IP interfaces or admin portals |
 | `10.1.10.0/24` | **External (EXT)** – Public-facing traffic and app access |
 | `10.1.20.0/24` | **Internal (INT)** – Internal services and app communication |
+| `10.1.30.0/30` | **MGT-BIG-IP 2P2** - Point-2-Point link between MTG RTR and BIG-IP |
+
