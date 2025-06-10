@@ -29,5 +29,5 @@ The architecture is segmented into management, external, and internal networks, 
 | `10.1.1.0/24` | **Management (MGT)** – Access to BIG-IP interfaces or admin portals |
 | `10.1.10.0/24` | **External (EXT)** – Public-facing traffic and app access |
 | `10.1.20.0/24` | **Internal (INT)** – Internal services and app communication |
-| `10.1.30.0/30` | **MGT-BIG-IP 2P2** - Point-2-Point link between MTG RTR and BIG-IP |
+| `10.1.30.0/30` | **MGT-BIG-IP P2P** - Point-2-Point link between MTG RTR and BIG-IP |
 
