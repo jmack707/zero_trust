@@ -1,0 +1,8 @@
+extensions:
+  - name: "as3"
+    api_url: "https://api.github.com/repos/F5Networks/f5-appsvcs-extension/releases/latest"
+    package_name: "f5-appsvcs"
+
+  - name: "do"
+    api_url: "https://api.github.com/repos/F5Networks/f5-declarative-onboarding/releases/latest"
+    package_name: "f5-declarative-onboarding"

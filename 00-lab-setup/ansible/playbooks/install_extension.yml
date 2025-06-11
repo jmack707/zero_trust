@@ -1,0 +1,5 @@
+- name: "Install AS3 on BIG-IP"
+  hosts: bigip
+  gather_facts: false
+  roles:
+    - role: install_as3

@@ -1,0 +1,57 @@
+- name: Set provider credentials for BIG-IP
+  ansible.builtin.set_fact:
+    provider:
+      server: "{{ ansible_host }}"
+      user: "{{ ansible_user }}"
+      password: "{{ ansible_ssh_pass }}"
+      server_port: "{{ server_port }}"
+      no_f5_teem: true
+      validate_certs: no
+
+- name: Query BIG-IP iAppLX package facts
+  f5networks.f5_modules.bigip_device_info:
+    provider: "{{ provider }}"
+    gather_subset:
+      - iapplx-packages
+  register: bigip_device_facts
+
+- name: Check if {{ extension.name | upper }} is installed and version matches
+  set_fact:
+    extension_is_installed: >
+      {{
+        bigip_device_facts.iapplx_packages | selectattr('name', 'equalto', extension.package_name) | list | length > 0
+      }}
+    current_version: >
+      {{
+        (bigip_device_facts.iapplx_packages | selectattr('name', 'equalto', extension.package_name) | map(attribute='version') | list)[0] | default('unknown')
+      }}
+  when: bigip_device_facts.iapplx_packages is defined
+
+- name: Debug current {{ extension.name | upper }} version
+  debug:
+    msg: "Installed version of {{ extension.name | upper }} is {{ current_version }}"
+  when: extension_is_installed
+
+- name: Skip installation since the latest version of {{ extension.name | upper }} is already installed
+  debug:
+    msg: "{{ extension.name | upper }} is already up-to-date. Skipping installation."
+  when: extension_is_installed
+
+- name: Remove previous {{ extension.name | upper }} package if outdated
+  f5networks.f5_modules.bigip_lx_package:
+    package: "{{ extension.package_name }}.rpm"
+    provider: "{{ provider }}"
+    state: absent
+  ignore_errors: true
+  when: extension_is_installed == true and current_version not in extension.version
+
+- name: Install {{ extension.name | upper }} package
+  f5networks.f5_modules.bigip_lx_package:
+    package: "~/{{ extension.name }}.rpm"
+    provider: "{{ provider }}"
+  when: extension_is_installed == false or current_version not in extension.version
+
+- name: Pause for {{ extension.name | upper }} to initialize
+  pause:
+    seconds: 60
+  when: extension_is_installed == false or current_version not in extension.version

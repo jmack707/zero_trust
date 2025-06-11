@@ -1,0 +1,25 @@
+- name: Set {{ extension.name | upper }} GitHub URI
+  ansible.builtin.set_fact:
+    extension_uri: "{{ extension.api_url }}"
+
+- name: Fetch latest {{ extension.name | upper }} RPM URL
+  ansible.builtin.shell: curl -s {{ extension_uri }} | grep -E rpm | grep -E browser_download_url | head -1 | cut -d "\"" -f 4
+  register: extension_output
+  delegate_to: localhost
+
+- name: Debug {{ extension.name | upper }} RPM URL
+  debug:
+    var: extension_output.stdout_lines[0]
+  delegate_to: localhost
+
+- name: Set {{ extension.name | upper }} RPM download URL
+  ansible.builtin.set_fact:
+    extension_download: "{{ extension_output.stdout_lines[0] }}"
+  delegate_to: localhost
+
+- name: Download {{ extension.name | upper }} RPM
+  ansible.builtin.get_url:
+    url: "{{ extension_download }}?raw=true"
+    dest: "~/{{ extension.name }}.rpm"
+    validate_certs: false
+  delegate_to: localhost
