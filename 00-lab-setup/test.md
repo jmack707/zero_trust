@@ -1,10 +1,6 @@
-Below is the updated version of your `README.md` file with added icons to enhance the visual appeal and highlight the documentation sections. Icons make the document more navigable and engaging.
-
----
-
 # 🛠️ BIG-IP Automation Lab Build
 
-This repository documents the build process, software components, and Ansible playbooks used to automate the configuration and deployment of a lab environment using F5 BIG-IP, alongside other tools. The lab infrastructure is designed to test Zero Trust use cases and application traffic management scenarios leveraging declarative onboarding, application services automation, and Kubernetes-based environments.
+This repository documents the build process, software components, and Ansible playbooks used to automate the configuration and deployment of a lab environment using F5 BIG-IP. The infrastructure is designed to enable Zero Trust use cases, manage Kubernetes workloads, and provide declarative application configurations.
 
 ---
 
@@ -60,14 +56,22 @@ Below is an outline of the software used in this lab environment:
 
 ## 🌐 Network Architecture
 
-The lab consists of the following IP subnets for segmentation:
+The lab environment includes several IP subnets to segregate management, external, and internal communications, as illustrated by the following network diagram:
 
-| Subnet | Description |
-|--------|-------------|
-| `10.1.1.0/24` | **Management (MGT)**: For accessing BIG-IP interfaces, admin portals, and monitoring tools. |
-| `10.1.10.0/24` | **External (EXT)**: Handles public-facing traffic and external application access. |
-| `10.1.20.0/24` | **Internal (INT)**: Facilitates internal services and communication. |
-| `10.1.30.0/30` | **Management-to-BIG-IP P2P (MGT-BIG-IP)**: Provides point-to-point connectivity between the management router and BIG-IP. |
+### Network Subnets
+
+| Subnet | Purpose |
+|--------|---------|
+| `10.1.1.0/24` | **Management (MGT)**: Provides access to BIG-IP admin interfaces and monitoring portals. |
+| `10.1.10.0/24` | **External (EXT)**: Handles external-facing traffic and application access. |
+| `10.1.20.0/24` | **Internal (INT)**: Manages internal application communication. |
+| `10.1.30.0/30` | **Point-to-Point (MGT-BIG-IP P2P)**: Point-to-point connection between the management router and BIG-IP. |
+
+### Network Topology
+
+The following network diagram represents the environment's topology, highlighting Kubernetes clusters, BIG-IP devices, applications, and management tools:
+
+![Network Architecture](network-diagram.png)
 
 ---
 
@@ -173,15 +177,5 @@ Feel free to open issues or create pull requests if you have improvements or que
 
 Enjoy automated cloud networking and Zero Trust application testing with F5 BIG-IP! 🚀
 
----
-
-### Tools Used in the Document:
-- 🛠️ = Setup instructions
-- 📦 = Software components 
-- 🔒 = Zero Trust testing  
-- 📖 = Supplemental documentation  
-
 --- 
-
-With icons added throughout the README, the content is now more interactive and structured! Let me know if you need further revisions. 😊
 
