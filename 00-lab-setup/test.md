@@ -71,7 +71,7 @@ The lab environment includes several IP subnets to segregate management, externa
 
 The following network diagram represents the environment's topology, highlighting Kubernetes clusters, BIG-IP devices, applications, and management tools:
 
-![Network Architecture](network-diagram.png)
+![Network Architecture](lab_diagram.png)
 
 ---
 
