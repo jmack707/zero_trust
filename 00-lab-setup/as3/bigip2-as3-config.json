@@ -28,7 +28,7 @@
                     "bigip": "/Common/udp_gtm_dns"
                 },
                 "virtualAddresses": [
-                    "10.1.20.53"
+                    "10.1.20.153"
                 ],
                 "virtualPort": 53,
                 "snat": "none",
