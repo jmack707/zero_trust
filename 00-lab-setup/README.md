@@ -69,7 +69,7 @@ The major tasks involved in building and automating this lab environment are:
 
 > **Note:** Ensure the diagram (`network-diagram.png`) is placed in the root directory of your repository.
 
-![Network Diagram](network-diagram.png)
+![Network Diagram](lab_diagram.png)
 
 ---
 
