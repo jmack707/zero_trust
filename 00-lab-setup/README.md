@@ -1,3 +1,35 @@
+# 🛠️ BIG-IP Automation Lab Build
+
+This repository documents the build process, software components, and Ansible playbooks used to automate the configuration and deployment of a lab environment using F5 BIG-IP. The infrastructure is designed to enable Zero Trust use cases, manage Kubernetes workloads, and provide declarative application configurations.
+
+---
+
+## 🗂️ Table of Contents
+
+1. [🚀 High-Level Workflow](#-high-level-workflow)
+2. [📦 Software Components](#-software-components)
+3. [🌐 Network Architecture](#-network-architecture)
+4. [🛠️ Setup Instructions](#️-setup-instructions)
+    - [📥 Provision BIG-IP](#-provision-big-ip)
+    - [📦 Deploy Declarative Onboarding (DO) and Application Services 3 (AS3)](#-deploy-declarative-onboarding-do-and-application-services-3-as3)
+    - [⚙️ Update Device Configuration](#️-update-device-configuration)
+    - [📜 Push Device Configuration](#-push-device-configuration)
+5. [🔒 Testing Zero Trust Use Cases](#-testing-zero-trust-use-cases)
+6. [📖 References](#-references)
+
+---
+
+## 🚀 High-Level Workflow
+
+The major tasks involved in building and automating this lab environment are:
+
+1. **Deploy BIG-IP Declarative Onboarding (DO) and Application Services 3 (AS3) RPMs:**  
+   🛠️ Use Ansible Playbooks to upload and install F5 RPM packages on the BIG-IP device.
+
+2. **Update BIG-IP Device Configuration:**  
+   ⚙️ Configure BIG-IP interfaces, VLANs, self-IPs, and routing using Ansible.
+
+3. **Push Application Configuration:**  
    📜 Apply application-specific configurations and enable advanced routing/security profiles using AS3.
 
 4. **Test Zero Trust Use Cases:**  
@@ -7,18 +39,37 @@
 
 ## 📦 Software Components
 
-Below is an outline of the software used in this lab environment:
+| Component                    | Type   | Container/Image/Package                             | Purpose                                                                  |
+|------------------------------|--------|-----------------------------------------------------|--------------------------------------------------------------------------|
+| **BIG-IP VE**                | F5     | `BIGIP-17.5.0-0.0.15.ALL-vmware.ova`                | Deploy BIG-IP in a virtualized environment.                              |
+| **Declarative Onboarding**   | F5     | `f5-declarative-onboarding-1.46.0-7.noarch.rpm`     | Simplifies onboarding processes with declarative API.                    |
+| **Application Services 3**   | F5     | `f5-appsvcs-3.54.0-7.noarch.rpm`                    | Enables automated application service deployments.                       |
+| **K8s Ingress Controller**   | F5     | `nginx-plus-ingress`                                | BIG-IP integration with Kubernetes.                                      |
+| **BIG-IP Controller (CIS)**  | F5     | `f5networks/k8s-bigip-ctlr`                         | Alternative ingress controller for Kubernetes.                           |
+| **Ansible Environment**      | Non-F5 | `dialtone21/f5_cis_ee:1.0.0`                        | Provides Ansible environment for F5 integration.                         |
+| **Web Apps**                 | Non-F5 | `nginxdemos`, `bkimminich/juice-shop`               | Application traffic generation & security testing.                       |
+| **Cert-Manager**             | Non-F5 | `cert-manager`                                      | Automates Kubernetes TLS certificate management.                         |
 
-| Component | Type | Container/Image/Package | Purpose |
-|-----------|------|-------------------------|---------|
-| **BIG-IP VE** | F5 | `BIGIP-17.5.0-0.0.15.ALL-vmware.ova` | Deploy BIG-IP in a virtualized environment. |
-| **Declarative Onboarding (DO)** | F5 | `f5-declarative-onboarding-1.46.0-7.noarch.rpm` | Simplifies BIG-IP onboarding processes with declarative API. |
-| **Application Services 3 (AS3)** | F5 | `f5-appsvcs-3.54.0-7.noarch.rpm` | Enables automated application service deployments on BIG-IP. |
-| **Kubernetes Ingress Controller** | F5 | `nginx-plus-ingress` | Integrates BIG-IP with Kubernetes for managing application traffic. |
-| **BIG-IP Controller (CIS)** | F5 | `f5networks/k8s-bigip-ctlr` | Provides an alternative ingress controller to manage Kubernetes applications. |
-| **Ansible Execution Environment** | Non-F5 | `dialtone21/f5_cis_ee:1.0.0` | Contains Ansible modules for interacting with BIG-IP. |
-| **Web Applications** | Non-F5 | `nginxdemos`, `bkimminich/juice-shop` | Applications for traffic simulation and security testing. |
-| **Cert-Manager** | Non-F5 | `cert-manager` | Manages the provisioning of TLS certificates within Kubernetes. |
+---
+
+## 🌐 Network Architecture
+
+### Network Subnets
+
+| Subnet          | Purpose / Role                                                             |
+|-----------------|---------------------------------------------------------------------------|
+| `10.1.1.0/24`   | **Management (MGT)** – Access for device management and admin portals.     |
+| `10.1.10.0/24`  | **External (EXT)** – Public-facing app traffic.                            |
+| `10.1.20.0/24`  | **Internal (INT)** – Internal services and application communications.     |
+| `10.1.30.0/30`  | **MGT-BIG-IP P2P** – P2P connection between router and the BIG-IP devices. |
+
+### Topology Diagram
+
+**Lab Topology:**
+
+> **Note:** Ensure the diagram (`network-diagram.png`) is placed in the root directory of your repository.
+
+![Network Diagram](network-diagram.png)
 
 ---
 
