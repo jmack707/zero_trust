@@ -54,27 +54,6 @@ The major tasks involved in building and automating this lab environment are:
 
 ## 🌐 Network Architecture
 
-### Network Subnets
-
-| Subnet          | Purpose / Role                                                             |
-|-----------------|---------------------------------------------------------------------------|
-| `10.1.1.0/24`   | **Management (MGT)** – Access for device management and admin portals.     |
-| `10.1.10.0/24`  | **External (EXT)** – Public-facing app traffic.                            |
-| `10.1.20.0/24`  | **Internal (INT)** – Internal services and application communications.     |
-| `10.1.30.0/30`  | **MGT-BIG-IP P2P** – P2P connection between router and the BIG-IP devices. |
-
-### Topology Diagram
-
-**Lab Topology:**
-
-> **Note:** Ensure the diagram (`network-diagram.png`) is placed in the root directory of your repository.
-
-![Network Diagram](lab_diagram.png)
-
----
-
-## 🌐 Network Architecture
-
 The lab environment includes several IP subnets to segregate management, external, and internal communications, as illustrated by the following network diagram:
 
 ### Network Subnets
