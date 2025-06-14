@@ -1,0 +1,8 @@
+---
+- name: Install RPMs on BIG-IP
+  hosts: bigip
+  connection: local
+  vars:
+    rpm_directory: "/tmp/f5_rpms"  # Directory containing RPMs on the local machine
+  roles:
+    - install_rpms

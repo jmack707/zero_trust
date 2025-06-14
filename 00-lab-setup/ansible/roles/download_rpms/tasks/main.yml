@@ -1,0 +1,69 @@
+---
+- name: Create folder for RPM files
+  ansible.builtin.file:
+    path: "{{ download_folder }}"
+    state: directory
+    mode: '0755'
+
+- name: Fetch latest release information from GitHub for extensions
+  ansible.builtin.uri:
+    url: "{{ item.api_url }}"
+    method: GET
+    return_content: yes
+    headers:
+      Accept: "application/vnd.github.v3+json"
+  register: github_api_responses
+  loop: "{{ extensions }}"
+  delegate_to: localhost
+
+- name: Debug GitHub API responses
+  ansible.builtin.debug:
+    var: github_api_responses.results
+
+- name: Extract download URLs and filenames for extensions
+  set_fact:
+    extensions_with_releases: "{{ extensions_with_releases | default([]) + [processed_extension] }}"
+  vars:
+    processed_extension: >-
+      {{
+        {
+          'name': item.item.name,
+          'package_name': item.item.package_name,
+          'download_url': (
+            (
+              item.content | from_json
+            ).assets | selectattr('name', 'search', item.item.package_name) | map(attribute='browser_download_url') | first
+          ),
+          'filename': (
+            (
+              item.content | from_json
+            ).assets | selectattr('name', 'search', item.item.package_name) | map(attribute='name') | first
+          )
+        }
+      }}
+  loop: "{{ github_api_responses.results }}"
+  when: >
+    item is defined and
+    (item.content | from_json).assets is defined and
+    (item.content | from_json).assets | length > 0
+
+- name: Debug the extracted extensions
+  ansible.builtin.debug:
+    var: extensions_with_releases
+
+- name: Download the RPM files
+  ansible.builtin.get_url:
+    url: "{{ item.download_url }}"
+    dest: "{{ download_folder }}/{{ item.filename }}"
+  loop: "{{ extensions_with_releases }}"
+  when: item.download_url is not none
+
+- name: Save filenames and paths to JSON file
+  ansible.builtin.copy:
+    content: "{{ extensions_with_releases | to_json }}"
+    dest: "{{ filenames_file }}"
+
+- name: Display downloaded files
+  ansible.builtin.debug:
+    msg: "Downloaded {{ item.filename }} to {{ download_folder }}"
+  loop: "{{ extensions_with_releases }}"
