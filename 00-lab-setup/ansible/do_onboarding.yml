@@ -1,0 +1,9 @@
+---
+- name: Declarative Onboarding for BIG-IP Devices
+  hosts: bigip
+  connection: httpapi
+  gather_facts: false
+  vars_files:
+    - vars/onboarding.json
+  roles:
+    - declarative_onboarding

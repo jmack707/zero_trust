@@ -1,0 +1,25 @@
+---
+# Step 1: Poll Declarative Onboarding Task Result
+- name: Poll Declarative Onboarding Task Status
+  ansible.builtin.uri:
+    url: "https://{{ ansible_host }}/mgmt/shared/declarative-onboarding"
+    user: "{{ ansible_user }}"
+    password: "{{ansible_password}}" 
+    method: GET
+    headers:
+      Content-Type: application/json
+    validate_certs: no
+  register: do_status_response
+  retries: 5
+  delay: 10
+  until:
+    - do_status_response.json.result is defined
+    - do_status_response.json.result.status in ["OK", "COMPLETE"]
+  failed_when:
+    - do_status_response.json.result.status in ["ERROR", "FAILED"]
+
+# Step 2: Print the Result Message
+- name: Print Result Message
+  ansible.builtin.debug:
+    msg: "Task Result Message for {{ inventory_hostname }}: {{ do_status_response.json.result.message }}"    
+

@@ -1,0 +1,58 @@
+---
+# Step 1: Set BIG-IP provider details
+- name: Set a fact named 'provider' with BIG-IP login information
+  ansible.builtin.set_fact:
+    provider:
+      server: "{{ ansible_host }}"
+      user: "{{ ansible_user }}"
+      password: "{{ ansible_ssh_pass }}"
+      server_port: "{{ server_port | default(443) }}"
+      no_f5_teem: yes
+      validate_certs: no
+
+# Step 2: Find all local RPM files
+- name: Find all RPM files in the local directory
+  ansible.builtin.find:
+    paths: "/tmp/f5_rpms"
+    patterns: "*.rpm"
+  register: rpm_files
+
+# Step 3: Debug the list of RPM files
+- name: Debug list of RPM files
+  ansible.builtin.debug:
+    var: rpm_files.files
+
+# Step 4: Ensure the `/var/tmp` directory exists on BIG-IP
+- name: Ensure the RPM directory exists on BIG-IP
+  ansible.builtin.command:
+    cmd: "mkdir -p /var/tmp"
+
+# Step 5: Upload RPM files to BIG-IP
+- name: Copy RPM files from control node to BIG-IP
+  ansible.builtin.copy:
+    src: "{{ item.path }}"
+    dest: "/var/tmp/{{ item.path | basename }}"
+  loop: "{{ rpm_files.files }}"
+  loop_control:
+    label: "{{ item.path | basename }}"
+
+# Step 6: Install RPM files using `f5networks.f5_modules.bigip_lx_package`
+- name: Install RPMs on BIG-IP
+  f5networks.f5_modules.bigip_lx_package:
+    package: "/var/tmp/{{ item.path | basename }}"  # Path on BIG-IP
+    provider: "{{ provider }}"
+  loop: "{{ rpm_files.files }}"
+  loop_control:
+    label: "{{ item.path | basename }}"
+
+# Step 7: Validate installed RPMs using `bigip_device_info`
+- name: Retrieve installed LX packages from BIG-IP
+  f5networks.f5_modules.bigip_device_info:
+    gather_subset:
+      - iapplx-packages  # Correct subset for LX packages
+    provider: "{{ provider }}"
+  register: lx_package_info
+
+- name: Debug full lx_package_info
+  ansible.builtin.debug:
+    var: lx_package_info.iapplx_packages

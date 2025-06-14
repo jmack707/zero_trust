@@ -1,0 +1,196 @@
+{
+    "id": "03b8bf94-02f0-4e53-a755-545d34cafa40",
+    "selfLink": "https://localhost/mgmt/shared/declarative-onboarding/task/03b8bf94-02f0-4e53-a755-545d34cafa40",
+    "result": {
+        "class": "Result",
+        "code": 200,
+        "status": "OK",
+        "message": "success",
+        "warnings": [
+            "The default value for 'allowService' on a 'SelfIp' changed from 'default' to 'none' in f5-declarative-onboarding version 1.36.0."
+        ]
+    },
+    "declaration": {
+        "schemaVersion": "1.34.0",
+        "class": "Device",
+        "async": true,
+        "label": "my BIG-IP declaration for declarative onboarding",
+        "Common": {
+            "class": "Tenant",
+            "hostname": "bigip1.lab.test",
+            "system": {
+                "class": "System",
+                "autoCheck": false,
+                "autoPhonehome": false,
+                "cliInactivityTimeout": 900,
+                "consoleInactivityTimeout": 900,
+                "guiAuditLog": true,
+                "mcpAuditLog": "enable",
+                "tmshAuditLog": true,
+                "hostname": "bigip1",
+                "preserveOrigDhcpRoutes": false,
+                "guiSecurityBanner": true,
+                "guiSecurityBannerText": "Welcome to the BIG-IP Configuration Utility.\n\nLog in with your username and password using the fields on the left.",
+                "usernamePrompt": "Username",
+                "passwordPrompt": "Password"
+            },
+            "myDns": {
+                "class": "DNS",
+                "nameServers": [
+                    "10.1.10.1"
+                ],
+                "search": [
+                    "lab.test"
+                ]
+            },
+            "myNtp": {
+                "class": "NTP",
+                "servers": [
+                    "10.1.10.1"
+                ],
+                "timezone": "UTC"
+            },
+            "myProvisioning": {
+                "class": "Provision",
+                "ltm": "nominal",
+                "apm": "nominal",
+                "gtm": "nominal"
+            },
+            "fl-vxlan": {
+                "class": "Tunnel",
+                "description": "xvlan tunnel for k8s",
+                "tunnelType": "vxlan",
+                "usePmtu": true,
+                "localAddress": "10.1.20.4",
+                "key": 1,
+                "port": 8472,
+                "floodingType": "none",
+                "encapsulationType": "vxlan",
+                "mtu": 0,
+                "typeOfService": "preserve",
+                "autoLastHop": "default",
+                "remoteAddress": "any6",
+                "secondaryAddress": "any6",
+                "mode": "bidirectional",
+                "transparent": false,
+                "trafficGroup": "none",
+                "defaultsFrom": "vxlan"
+            },
+            "fl-vxlan-self": {
+                "class": "SelfIp",
+                "address": "10.244.20.91/16",
+                "vlan": "fl-vxlan",
+                "allowService": "none",
+                "trafficGroup": "traffic-group-local-only"
+            },
+            "internal": {
+                "class": "VLAN",
+                "tag": 4093,
+                "mtu": 1500,
+                "interfaces": [
+                    {
+                        "name": "1.2",
+                        "tagged": false
+                    }
+                ],
+                "autoLastHop": "default",
+                "cmpHash": "default",
+                "failsafeEnabled": false,
+                "failsafeAction": "failover-restart-tm",
+                "failsafeTimeout": 90
+            },
+            "internal-self": {
+                "class": "SelfIp",
+                "address": "10.1.20.4/24",
+                "vlan": "internal",
+                "allowService": "all",
+                "trafficGroup": "traffic-group-local-only"
+            },
+            "external": {
+                "class": "VLAN",
+                "tag": 4094,
+                "mtu": 1500,
+                "interfaces": [
+                    {
+                        "name": "1.1",
+                        "tagged": false
+                    }
+                ],
+                "autoLastHop": "default",
+                "cmpHash": "default",
+                "failsafeEnabled": false,
+                "failsafeAction": "failover-restart-tm",
+                "failsafeTimeout": 90
+            },
+            "external-self": {
+                "class": "SelfIp",
+                "address": "10.1.10.4/24",
+                "vlan": "external",
+                "allowService": "none",
+                "trafficGroup": "traffic-group-local-only"
+            },
+            "default": {
+                "class": "Route",
+                "gw": "10.1.10.254",
+                "network": "default",
+                "mtu": 1500,
+                "localOnly": false
+            },
+            "httpd": {
+                "class": "HTTPD",
+                "maxClients": 10,
+                "authPamIdleTimeout": 900,
+                "sslCiphersuite": [
+                    "ECDHE-ECDSA-AES256-GCM-SHA384",
+                    "ECDHE-ECDSA-AES256-SHA384",
+                    "ECDHE-ECDSA-AES256-SHA",
+                    "ECDH-ECDSA-AES256-GCM-SHA384",
+                    "ECDH-ECDSA-AES256-SHA384",
+                    "ECDH-ECDSA-AES256-SHA",
+                    "AES256-GCM-SHA384",
+                    "AES256-SHA256",
+                    "AES256-SHA",
+                    "CAMELLIA256-SHA",
+                    "ECDHE-RSA-AES128-GCM-SHA256",
+                    "ECDHE-ECDSA-AES128-GCM-SHA256",
+                    "ECDHE-ECDSA-AES128-SHA256",
+                    "ECDHE-RSA-AES128-SHA",
+                    "ECDHE-ECDSA-AES128-SHA",
+                    "ECDH-ECDSA-AES128-GCM-SHA256",
+                    "ECDH-ECDSA-AES128-SHA256",
+                    "ECDH-ECDSA-AES128-SHA",
+                    "AES128-GCM-SHA256",
+                    "AES128-SHA256",
+                    "AES128-SHA",
+                    "SEED-SHA",
+                    "CAMELLIA128-SHA"
+                ],
+                "sslProtocol": "all -SSLv2 -SSLv3 -TLSv1",
+                "allow": "all"
+            },
+            "sshd": {
+                "class": "SSHD",
+                "banner": "Private Lab",
+                "inactivityTimeout": 900,
+                "loginGraceTime": 60,
+                "maxAuthTries": 3,
+                "maxStartups": "5",
+                "protocol": 2
+            },
+            "dbvars": {
+                "class": "DbVariables",
+                "ui.advisory.enabled": true,
+                "ui.advisory.color": "green",
+                "ui.advisory.text": "/Common/hostname",
+                "ui.system.preferences.advancedselection": "advanced",
+                "ui.system.preferences.recordsperscreen": "100",
+                "ui.system.preferences.startscreen": "network_map",
+                "ui.users.redirectsuperuserstoauthsummary": "true",
+                "dns.cache": "enable",
+                "config.allow.rfc3927": "enable",
+                "big3d.minimum.tls.version": "TLSV1.2",
+                "liveinstall.checksig": "enable"
+            }
+        }
+    }
+}

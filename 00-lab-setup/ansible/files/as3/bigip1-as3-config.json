@@ -1,0 +1,73 @@
+{
+  "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema.json",
+  "class": "AS3",
+  "declaration": {
+      "class": "ADC",
+      "schemaVersion": "3.37.0",
+      "remark": "CIS AS3",
+      "Common": {
+          "class": "Tenant",
+          "Shared": {
+              "class": "Application",
+              "template": "shared",
+              "Proxy_Protocol_iRule": {
+                  "class": "iRule",
+                  "iRule": {
+                      "base64": "I1BST1hZIFByb3RvY29sIFJlY2VpdmVyIGlSdWxlCiMgaVJ1bGUgdXNlZCBmb3IgRjUgSW5ncmVzc0xpbmsKIyBMYXllciA0IGlydWxlIHNpbmNlIEJJRy1JUCBpcyBwYXNzdGhyb3VnaAp3aGVuIENMSUVOVF9BQ0NFUFRFRCB7CiAgICBzZXQgcHJveHloZWFkZXIgIlBST1hZICIKICAgIGlmIHtbSVA6OnZlcnNpb25dIGVxIDR9IHsKICAgICAgICBhcHBlbmQgcHJveHloZWFkZXIgIlRDUDQgIgogICAgfSBlbHNlIHsKICAgICAgICBhcHBlbmQgcHJveHloZWFkZXIgIlRDUDYgIgogICAgfQogICAgYXBwZW5kIHByb3h5aGVhZGVyICJbSVA6OnJlbW90ZV9hZGRyXSBbSVA6OmxvY2FsX2FkZHJdIFtUQ1A6OnJlbW90ZV9wb3J0XSBbVENQOjpsb2NhbF9wb3J0XVxyXG4iCn0Kd2hlbiBTRVJWRVJfQ09OTkVDVEVEIHsKICAgIFRDUDo6cmVzcG9uZCAkcHJveHloZWFkZXIKfQ=="
+                  }
+              },
+            "dns.listener.53": {
+                "layer4": "udp",
+                "translateServerAddress": false,
+                "translateServerPort": false,
+                "class": "Service_UDP",
+                "profileDNS": {
+                    "bigip": "/Common/dns"
+                },
+                "profileUDP": {
+                    "bigip": "/Common/udp_gtm_dns"
+                },
+                "virtualAddresses": [
+                    "10.1.20.53"
+                ],
+                "virtualPort": 53,
+                "snat": "none",
+                "allowVlans": [
+                    {
+                        "bigip": "/Common/internal"
+                    }
+                ]
+            },
+            "DC1": {
+                "class": "GSLB_Data_Center"
+            },
+            "bigip1": {
+                "class": "GSLB_Server",
+                "dataCenter": {
+                    "use": "DC1"
+                },
+                "devices": [
+                    {
+                        "address": "10.1.20.4"
+                    }
+                ],
+                "virtualServerDiscoveryMode": "enabled",
+                "exposeRouteDomainsEnabled": true
+            },
+            "bigip2": {
+                "class": "GSLB_Server",
+                "dataCenter": {
+                    "use": "DC2"
+                },
+                "devices": [
+                    {
+                        "address": "10.1.20.5"
+                    }
+                ],
+                "virtualServerDiscoveryMode": "enabled",
+                "exposeRouteDomainsEnabled": true
+            }            
+          }
+      }
+  }
+}

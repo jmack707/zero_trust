@@ -1,0 +1,21 @@
+---
+ansible-navigator:
+  ansible:
+    config:
+      path: ansible.cfg
+
+  execution-environment:
+    container-engine: docker
+    image: dialtone21/f5_cis_ee:1.0.0
+    pull:
+      policy: missing
+    enabled: true    
+    volume-mounts:
+      - src: /tmp/f5_rpms
+        dest: /tmp/f5_rpms
+        options: Z      
+          
+  mode: interactive
+
+  playbook-artifact:
+    enable: false

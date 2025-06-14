@@ -1,0 +1,6 @@
+---
+- name: Send Declarative Onboarding configuration
+  include_tasks: deploy.yml
+
+- name: Poll and Validate Declarative Onboarding status
+  include_tasks: validate.yml
