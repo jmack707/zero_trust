@@ -1,7 +1,0 @@
----
-- name: Download RPMs for F5 Extensions
-  hosts: localhost
-  vars_files:
-    - ../vars/extensions.yml
-  roles:
-    - download_rpms
