@@ -1,0 +1,13 @@
+---
+- name: Select JSON Config for Each BIG-IP
+  ansible.builtin.set_fact:
+    do_payload_file: "{{ onboarding_files[inventory_hostname] }}"
+
+- name: Debug the selected configuration file
+  ansible.builtin.debug:
+    msg: "Using JSON file {{ do_payload_file }} for device {{ inventory_hostname }}"
+
+- name: Deploy Declarative Onboarding JSON configuration
+  f5networks.f5_bigip.bigip_do_deploy:
+    content: "{{ lookup('file', do_payload_file) }}"
+  register: response
