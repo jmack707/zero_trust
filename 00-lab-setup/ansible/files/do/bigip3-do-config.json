@@ -5,7 +5,7 @@
   "label": "my BIG-IP declaration for declarative onboarding",
   "Common": {
     "class": "Tenant",
-    "hostname": "bigip1.lab.test",
+    "hostname": "bigip-mgmt.lab.test",
     "system": {
       "class": "System",
       "autoCheck": false,
@@ -18,38 +18,20 @@
     },
     "myDns": {
       "class": "DNS",
-      "nameServers": ["10.1.10.1"],
+      "nameServers": ["10.1.20.1"],
       "search": ["lab.test"]
     },
     "myNtp": {
       "class": "NTP",
-      "servers": ["10.1.10.1"],
+      "servers": ["10.1.20.1"],
       "timezone": "UTC"
     },
     "myProvisioning": {
       "class": "Provision",
       "ltm": "nominal",
-      "apm": "nominal",
-      "gtm": "nominal"
-    },
-    "internal-self": {
-      "class": "SelfIp",
-      "address": "10.1.20.4/24",
-      "vlan": "internal",
-      "allowService": "all",
-      "trafficGroup": "traffic-group-local-only"
+      "apm": "nominal"
     },
     "internal": {
-      "class": "VLAN",
-      "mtu": 1500,
-      "interfaces": [
-        {
-          "name": "1.2",
-          "tagged": false
-        }
-      ]
-    },    
-    "external": {
       "class": "VLAN",
       "mtu": 1500,
       "interfaces": [
@@ -58,17 +40,17 @@
           "tagged": false
         }
       ]
-    },
-    "external-self": {
+    },    
+    "internal-self": {
       "class": "SelfIp",
-      "address": "10.1.10.4/24",
-      "vlan": "external",
-      "allowService": "none",
+      "address": "10.1.20.12/24",
+      "vlan": "internal",
+      "allowService": "all",
       "trafficGroup": "traffic-group-local-only"
     },
     "default": {
       "class": "Route",
-      "gw": "10.1.10.254",
+      "gw": "10.1.20.254",
       "network": "default",
       "mtu": 1500
     },

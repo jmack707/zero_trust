@@ -2,6 +2,7 @@
 - name: Install RPMs on BIG-IP
   hosts: bigip
   connection: local
+  gather_facts: no
   vars:
     rpm_directory: "/tmp/f5_rpms"  # Directory containing RPMs on the local machine
   roles:

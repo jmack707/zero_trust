@@ -10,8 +10,8 @@
       Content-Type: application/json
     validate_certs: no
   register: do_status_response
-  retries: 5
-  delay: 10
+  retries: 10
+  delay: 20
   until:
     - do_status_response.json.result is defined
     - do_status_response.json.result.status in ["OK", "COMPLETE"]

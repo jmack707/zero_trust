@@ -1,3 +1,4 @@
 onboarding_files:
   bigip1.test.local: "files/do/bigip1-do-config.json"
   bigip2.test.local: "files/do/bigip2-do-config.json"
+  bigip3.test.local: "files/do/bigip3-do-config.json"
