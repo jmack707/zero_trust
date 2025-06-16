@@ -44,8 +44,9 @@ The major tasks involved in building and automating this lab environment are:
 | **BIG-IP VE**                | F5     | `BIGIP-17.5.0-0.0.15.ALL-vmware.ova`                | Deploy BIG-IP in a virtualized environment.                              |
 | **Declarative Onboarding**   | F5     | `f5-declarative-onboarding-1.46.0-7.noarch.rpm`     | Simplifies onboarding processes with declarative API.                    |
 | **Application Services 3**   | F5     | `f5-appsvcs-3.54.0-7.noarch.rpm`                    | Enables automated application service deployments.                       |
-| **K8s Ingress Controller**   | F5     | `nginx-plus-ingress`                                | BIG-IP integration with Kubernetes.                                      |
-| **BIG-IP Controller (CIS)**  | F5     | `f5networks/k8s-bigip-ctlr`                         | Alternative ingress controller for Kubernetes.                           |
+| **K8s Ingress Controller**   | F5     | `nginx-plus-ingress:5.0.0`                          | BIG-IP integration with Kubernetes.                                      |
+| **BIG-IP Controller (CIS)**  | F5     | `f5networks/k8s-bigip-ctlr:2:20.0`                  | Alternative ingress controller for Kubernetes.                           |
+| **Privileger User Access**   | F5     | `privileged-user-access-3.0.11`                     | Manage Networking devices  and other components                          |
 | **Ansible Environment**      | Non-F5 | `dialtone21/f5_cis_ee:1.0.0`                        | Provides Ansible environment for F5 integration.                         |
 | **Web Apps**                 | Non-F5 | `nginxdemos`, `bkimminich/juice-shop`               | Application traffic generation & security testing.                       |
 | **Cert-Manager**             | Non-F5 | `cert-manager`                                      | Automates Kubernetes TLS certificate management.                         |
