@@ -86,66 +86,26 @@ The following network diagram represents the environment's topology, highlightin
 ### 📦 Deploy Declarative Onboarding (DO) and Application Services 3 (AS3)
 1. Use the following Ansible Playbook to upload DO and AS3 RPMs onto the BIG-IP:
 
-```yaml
----
-- name: Upload DO and AS3 RPMs to BIG-IP
-  hosts: bigip
-  tasks:
-    - name: Push Declarative Onboarding RPM
-      bigip_upload:
-        src: "path/to/f5-declarative-onboarding-1.46.0-7.noarch.rpm"
-        dest: "/var/config/rest/downloads/"
-    - name: Push Application Services RPM
-      bigip_upload:
-        src: "path/to/f5-appsvcs-3.54.0-7.noarch.rpm"
-        dest: "/var/config/rest/downloads/"
-    - name: Install DO RPM
-      bigip_command:
-        commands:
-          - "tmsh install /var/config/rest/downloads/f5-declarative-onboarding-1.46.0-7.noarch.rpm"
-    - name: Install AS3 RPM
-      bigip_command:
-        commands:
-          - "tmsh install /var/config/rest/downloads/f5-appsvcs-3.54.0-7.noarch.rpm"
+```bash
+
+ansible-navigator run  download_atc.yml --mode stdout
+ansible-navigator run  install_atc.yml --mode stdout
+
 ```
 
 ---
 
 ### ⚙️ Update Device Configuration
-- Use an Ansible Playbook to configure device attributes such as VLANs, Self-IPs, Route tables, and interface settings:
-
-```yaml
----
-- name: Configure BIG-IP device settings
-  hosts: bigip
-  tasks:
-    - name: Configure VLANs
-      bigip_vlan:
-        name: "external"
-        tagged_interfaces: ["1.1"]
-        self_ip: "10.1.10.254"
-        netmask: "255.255.255.0"
-
-    - name: Configure Self-IPs
-      bigip_self_ip:
-        name: "external-self"
-        vlan: "external"
-        address: "10.1.10.254/24"
-```
+- Update the device configuration files location at files/do to match to your environment.
 
 ---
 
 ### 📜 Push Device Configuration
 - Apply application-specific policies using Declarative Onboarding (DO) and AS3:
 
-```yaml
----
-- name: Deploy Applications via AS3
-  hosts: bigip
-  tasks:
-    - name: Push AS3 Declaration
-      bigip_json:
-        content: "{{ lookup('file', 'application-declaration.json') }}"
+```bash
+
+ansible-navigator run  do_onboarding.yml --mode stdout
 ```
 
 ---
@@ -154,10 +114,9 @@ The following network diagram represents the environment's topology, highlightin
 
 Once the BIG-IP, Kubernetes, and web applications are configured, you can proceed to test Zero Trust principles:
 
-1. Simulate application traffic using the `nginxdemos` container; verify ingress behavior.
-2. Deploy a vulnerable application (`bkimminich/juice-shop`) and inspect security configurations.
-3. Use Kubernetes resources (`cert-manager`) to test automated certificate provisioning.
-4. Verify segmentation between the `EXT` and `INT` subnets using network tools like `tcpdump`.
+1. [Multi-Factor Authentication](/01-MFA/)
+2. [Privileged User Access](/02-Privileged_Access/)
+3. [Kubernetes Ingress](/03-Kubernetes_Ingress/)
 
 ---
 
