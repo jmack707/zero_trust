@@ -47,9 +47,12 @@ The major tasks involved in building and automating this lab environment are:
 | **K8s Ingress Controller**   | F5     | `nginx-plus-ingress:5.0.0`                          | BIG-IP integration with Kubernetes.                                      |
 | **BIG-IP Controller (CIS)**  | F5     | `f5networks/k8s-bigip-ctlr:2:20.0`                  | Alternative ingress controller for Kubernetes.                           |
 | **Privileger User Access**   | F5     | `privileged-user-access-3.0.11`                     | Manage Networking devices  and other components                          |
+| **NGINX Ingress Helm Chart** | F5     | `nginx-ingress-2.1.0`                               | Helm chart to install NGINX Ingress Controller                           |
+| **BIG-IP CIS Helm Chart**    | F5     | `f5-bigip-ctlr-0.0.35`                              | Helm chart to install BIG-IP Container Ingress Service                   |
 | **Ansible Environment**      | Non-F5 | `dialtone21/f5_cis_ee:1.0.0`                        | Provides Ansible environment for F5 integration.                         |
 | **Web Apps**                 | Non-F5 | `nginxdemos`, `bkimminich/juice-shop`               | Application traffic generation & security testing.                       |
 | **Cert-Manager**             | Non-F5 | `cert-manager`                                      | Automates Kubernetes TLS certificate management.                         |
+| **Cert-Manager Helm Chart**  | Non-F5 | `cert-manager-v1.17.2`                              | Helm chart to install Cert Manager                                       |
 
 ---
 
