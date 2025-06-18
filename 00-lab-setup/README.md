@@ -47,9 +47,12 @@ The major tasks involved in building and automating this lab environment are:
 | **K8s Ingress Controller**   | F5     | `nginx-plus-ingress:5.0.0`                          | BIG-IP integration with Kubernetes.                                      |
 | **BIG-IP Controller (CIS)**  | F5     | `f5networks/k8s-bigip-ctlr:2:20.0`                  | Alternative ingress controller for Kubernetes.                           |
 | **Privileger User Access**   | F5     | `privileged-user-access-3.0.11`                     | Manage Networking devices  and other components                          |
+| **NGINX Ingress Helm Chart** | F5     | `nginx-ingress-2.1.0`                               | Helm chart to install NGINX Ingress Controller                           |
+| **BIG-IP CIS Helm Chart**    | F5     | `f5-bigip-ctlr-0.0.35`                              | Helm chart to install BIG-IP Container Ingress Service                   |
 | **Ansible Environment**      | Non-F5 | `dialtone21/f5_cis_ee:1.0.0`                        | Provides Ansible environment for F5 integration.                         |
 | **Web Apps**                 | Non-F5 | `nginxdemos`, `bkimminich/juice-shop`               | Application traffic generation & security testing.                       |
 | **Cert-Manager**             | Non-F5 | `cert-manager`                                      | Automates Kubernetes TLS certificate management.                         |
+| **Cert-Manager Helm Chart**  | Non-F5 | `cert-manager-v1.17.2`                              | Helm chart to install Cert Manager                                       |
 
 ---
 
@@ -86,66 +89,26 @@ The following network diagram represents the environment's topology, highlightin
 ### 📦 Deploy Declarative Onboarding (DO) and Application Services 3 (AS3)
 1. Use the following Ansible Playbook to upload DO and AS3 RPMs onto the BIG-IP:
 
-```yaml
----
-- name: Upload DO and AS3 RPMs to BIG-IP
-  hosts: bigip
-  tasks:
-    - name: Push Declarative Onboarding RPM
-      bigip_upload:
-        src: "path/to/f5-declarative-onboarding-1.46.0-7.noarch.rpm"
-        dest: "/var/config/rest/downloads/"
-    - name: Push Application Services RPM
-      bigip_upload:
-        src: "path/to/f5-appsvcs-3.54.0-7.noarch.rpm"
-        dest: "/var/config/rest/downloads/"
-    - name: Install DO RPM
-      bigip_command:
-        commands:
-          - "tmsh install /var/config/rest/downloads/f5-declarative-onboarding-1.46.0-7.noarch.rpm"
-    - name: Install AS3 RPM
-      bigip_command:
-        commands:
-          - "tmsh install /var/config/rest/downloads/f5-appsvcs-3.54.0-7.noarch.rpm"
+```bash
+
+ansible-navigator run  download_atc.yml --mode stdout
+ansible-navigator run  install_atc.yml --mode stdout
+
 ```
 
 ---
 
 ### ⚙️ Update Device Configuration
-- Use an Ansible Playbook to configure device attributes such as VLANs, Self-IPs, Route tables, and interface settings:
-
-```yaml
----
-- name: Configure BIG-IP device settings
-  hosts: bigip
-  tasks:
-    - name: Configure VLANs
-      bigip_vlan:
-        name: "external"
-        tagged_interfaces: ["1.1"]
-        self_ip: "10.1.10.254"
-        netmask: "255.255.255.0"
-
-    - name: Configure Self-IPs
-      bigip_self_ip:
-        name: "external-self"
-        vlan: "external"
-        address: "10.1.10.254/24"
-```
+- Update the device configuration files location at files/do to match to your environment.
 
 ---
 
 ### 📜 Push Device Configuration
 - Apply application-specific policies using Declarative Onboarding (DO) and AS3:
 
-```yaml
----
-- name: Deploy Applications via AS3
-  hosts: bigip
-  tasks:
-    - name: Push AS3 Declaration
-      bigip_json:
-        content: "{{ lookup('file', 'application-declaration.json') }}"
+```bash
+
+ansible-navigator run  do_onboarding.yml --mode stdout
 ```
 
 ---
@@ -154,10 +117,9 @@ The following network diagram represents the environment's topology, highlightin
 
 Once the BIG-IP, Kubernetes, and web applications are configured, you can proceed to test Zero Trust principles:
 
-1. Simulate application traffic using the `nginxdemos` container; verify ingress behavior.
-2. Deploy a vulnerable application (`bkimminich/juice-shop`) and inspect security configurations.
-3. Use Kubernetes resources (`cert-manager`) to test automated certificate provisioning.
-4. Verify segmentation between the `EXT` and `INT` subnets using network tools like `tcpdump`.
+1. [Multi-Factor Authentication](/01-MFA/)
+2. [Privileged User Access](/02-Privileged_Access/)
+3. [Kubernetes Ingress](/03-Kubernetes_Ingress/)
 
 ---
 
