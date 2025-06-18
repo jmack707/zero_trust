@@ -39,8 +39,8 @@ The major tasks involved in building and automating this lab environment are:
 
 ## 📦 Software Components
 
-| Component                    | Type   | Container/Image/Package                             | Purpose                                                                  |
-|------------------------------|--------|-----------------------------------------------------|--------------------------------------------------------------------------|
+| Component                    | Type     | Container/Image/Package                             | Purpose                                                                  |
+|------------------------------|----------|-----------------------------------------------------|--------------------------------------------------------------------------|
 | **BIG-IP VE**                | F5       | `BIGIP-17.5.0-0.0.15.ALL-vmware.ova`                | Deploy BIG-IP in a virtualized environment.                              |
 | **Declarative Onboarding**   | F5       | `f5-declarative-onboarding-1.46.0-7.noarch.rpm`     | Simplifies onboarding processes with declarative API.                    |
 | **Application Services 3**   | F5       | `f5-appsvcs-3.54.0-7.noarch.rpm`                    | Enables automated application service deployments.                       |
