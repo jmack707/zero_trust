@@ -50,9 +50,9 @@ The major tasks involved in building and automating this lab environment are:
 | **NGINX Ingress Helm Chart** | F5       | `nginx-ingress-2.1.0`                               | Helm chart to install NGINX Ingress Controller                           |
 | **BIG-IP CIS Helm Chart**    | F5       | `f5-bigip-ctlr-0.0.35`                              | Helm chart to install BIG-IP Container Ingress Service                   |
 | **Ansible Environment**      | F5       | `dialtone21/f5_cis_ee:1.0.0`                        | Provides Ansible environment for F5 integration.                         |
-| **NGINX Demo Apps**          | F5       | `nginxdemos`                                        | Application traffic generation & security testing.                       |
-| **Web Apps**                 | OWASP    | `bkimminich/juice-shop`                             | Application traffic generation & security testing.                       |
-| **Cert-Manager**             | CyberArk | `cert-manager`                                      | Automates Kubernetes TLS certificate management.                         |
+| **NGINX Demo Apps**          | F5       | `nginxdemos:0/3`                                    | Application traffic generation & security testing.                       |
+| **Web Apps**                 | OWASP    | `bkimminich/juice-shop:18.0.0`                      | Application traffic generation & security testing.                       |
+| **Cert-Manager**             | CyberArk | `cert-manager-v1.17.2`                              | Automates Kubernetes TLS certificate management.                         |
 | **Cert-Manager Helm Chart**  | CyberArk | `cert-manager-v1.17.2`                              | Helm chart to install Cert Manager                                       |
 
 ---
