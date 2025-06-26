@@ -39,21 +39,23 @@ The major tasks involved in building and automating this lab environment are:
 
 ## 📦 Software Components
 
-| Component                    | Type     | Container/Image/Package                             | Purpose                                                                  |
-|------------------------------|----------|-----------------------------------------------------|--------------------------------------------------------------------------|
-| **BIG-IP VE**                | F5       | `BIGIP-17.5.0-0.0.15.ALL-vmware.ova`                | Deploy BIG-IP in a virtualized environment.                              |
-| **Declarative Onboarding**   | F5       | `f5-declarative-onboarding-1.46.0-7.noarch.rpm`     | Simplifies onboarding processes with declarative API.                    |
-| **Application Services 3**   | F5       | `f5-appsvcs-3.54.0-7.noarch.rpm`                    | Enables automated application service deployments.                       |
-| **K8s Ingress Controller**   | F5       | `nginx-plus-ingress:5.0.0`                          | BIG-IP integration with Kubernetes.                                      |
-| **BIG-IP Controller (CIS)**  | F5       | `f5networks/k8s-bigip-ctlr:2:20.0`                  | Alternative ingress controller for Kubernetes.                           |
-| **Privileger User Access**   | F5       | `privileged-user-access-3.0.11`                     | Manage Networking devices  and other components                          |
-| **NGINX Ingress Helm Chart** | F5       | `nginx-ingress-2.1.0`                               | Helm chart to install NGINX Ingress Controller                           |
-| **BIG-IP CIS Helm Chart**    | F5       | `f5-bigip-ctlr-0.0.35`                              | Helm chart to install BIG-IP Container Ingress Service                   |
-| **Ansible Environment**      | F5       | `dialtone21/f5_cis_ee:1.0.0`                        | Provides Ansible environment for F5 integration.                         |
-| **NGINX Demo Apps**          | F5       | `nginxdemos:0/3`                                    | Application traffic generation & security testing.                       |
-| **Web Apps**                 | OWASP    | `bkimminich/juice-shop:18.0.0`                      | Application traffic generation & security testing.                       |
-| **Cert-Manager**             | CyberArk | `cert-manager-v1.17.2`                              | Automates Kubernetes TLS certificate management.                         |
-| **Cert-Manager Helm Chart**  | CyberArk | `cert-manager-v1.17.2`                              | Helm chart to install Cert Manager                                       |
+This document provides an overview of the software components used in the deployment, including their types, packages, purposes, source URLs, and deployment locations.
+
+| Component                    | Type     | Container/Image/Package                             | Purpose                                                                  | URLs                                                                  | Location                        |
+|------------------------------|----------|-----------------------------------------------------|--------------------------------------------------------------------------|-----------------------------------------------------------------------|---------------------------------|
+| **BIG-IP VE**                | F5       | `BIGIP-17.5.0-0.0.15.ALL-vmware.ova`                | Deploy BIG-IP in a virtualized environment.                              | https://downloads.f5.com                                              | VMware vSphere                  |
+| **Declarative Onboarding**   | F5       | `f5-declarative-onboarding-1.46.0-7.noarch.rpm`     | Simplifies onboarding processes with declarative API.                    | https://github.com/F5Networks/f5-declarative-onboarding               | BIG-IP VE                       |
+| **Application Services 3**   | F5       | `f5-appsvcs-3.54.0-7.noarch.rpm`                    | Enables automated application service deployments.                       | https://github.com/F5Networks/f5-appsvcs-extension                    | BIG-IP VE                       |
+| **K8s Ingress Controller**   | F5       | `nginx-plus-ingress:5.0.0`                          | NGINX ingress controller for Kubernetes                                  | private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress            | Kubernetes Cluster              |
+| **BIG-IP Controller (CIS)**  | F5       | `f5networks/k8s-bigip-ctlr:2:20.0`                  | BIG-IP Container Ingress Services for Kubernetes                         | https://github.com/F5Networks/k8s-bigip-ctlr                          | Kubernetes Cluster              |
+| **Privileger User Access**   | F5       | `privileged-user-access-3.0.11`                     | Provides PKI auth to Networking devices and other components             | https://github.com/f5devcentral/privileged-user-access                | Management Workstation          |
+| **NGINX Ingress Helm Chart** | F5       | `nginx-ingress-2.1.0`                               | Helm chart for NGINX Ingress Controller                                  | oci://ghcr.io/nginx/charts/nginx-ingress                              | Kubernetes Cluster              |
+| **BIG-IP CIS Helm Chart**    | F5       | `f5-bigip-ctlr-0.0.35`                              | Helm chart for BIG-IP Container Ingress Service                          | https://f5networks.github.io/charts/stable                            | Kubernetes Cluster              |
+| **Ansible Environment**      | F5       | `dialtone21/f5_cis_ee:1.0.0`                        | Provides Ansible environment for F5 integration.                         | dialtone21/f5_cis_ee                                                  | Management Workstation          |
+| **NGINX Demo Apps**          | F5       | `nginxdemos`                                        | Application traffic generation & security testing.                       | nginxdemos/nginx-hello                                                | Kubernetes Cluster              |
+| **Web Apps**                 | OWASP    | `bkimminich/juice-shop`                             | Application traffic generation & security testing.                       | bkimminich/juice-shop                                                 | Kubernetes Cluster              |
+| **Cert-Manager**             | CyberArk | `cert-manager`                                      | Automates Kubernetes TLS certificate management.                         | quay.io/jetstack/cert-manager                                         | Kubernetes Cluster              |
+| **Cert-Manager Helm Chart**  | CyberArk | `cert-manager-v1.17.2`                              | Helm chart to install Cert Manager                                       | https://charts.jetstack.io                                            | Kubernetes Cluster              |
 
 ---
 
